@@ -92,14 +92,10 @@ const Feed: React.FC = () => {
             {/* ── Top Header ── */}
             <header className="feed-header">
                 <span className="feed-header-logo">✦ Incon</span>
-                <Link to="/dashboard" className="feed-header-tab">Network</Link>
-                <Link to="/feed" className="feed-header-tab active">Live Feed</Link>
                 <div className="feed-header-spacer" />
                 <div className="feed-header-actions">
-                    <button className="feed-header-new-btn" onClick={() => setIsComposing(true)} title="New Pitch">+</button>
-                    <button className="feed-header-btn" title="Search">🔍</button>
                     <button className="feed-header-btn" title="Notifications">🔔</button>
-                    <div className="feed-avatar-sm">{initials(currentUser.username || '')}</div>
+                    <Link to="/dashboard"><div className="feed-avatar-sm">{initials(currentUser.username || '')}</div></Link>
                 </div>
             </header>
 
