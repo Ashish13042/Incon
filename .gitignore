@@ -12,6 +12,12 @@ build/
 **/dist/
 **/build/
 
+# TypeScript compiled output (when compiled next to source files)
+server/src/**/*.js
+server/src/**/*.js.map
+server/src/**/*.d.ts
+server/src/**/*.d.ts.map
+
 # Logs
 *.log
 npm-debug.log*
