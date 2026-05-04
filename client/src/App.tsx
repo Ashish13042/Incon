@@ -28,7 +28,6 @@ function AppInner() {
           {isLoggedIn && (
             <>
               <Link to="/dashboard" style={{ textDecoration: 'none', color: '#aaa', fontSize: '14px' }}>Network</Link>
-              <Link to="/feed" style={{ textDecoration: 'none', color: '#aaa', fontSize: '14px' }}>Live Feed</Link>
             </>
           )}
 
@@ -48,12 +47,11 @@ function AppInner() {
       )}
 
       <Routes>
-        <Route path="/" element={<h1 style={{ padding: '40px 28px', fontFamily: 'Inter, sans-serif' }}>Welcome to Incon 🚀</h1>} />
+        <Route path="/" element={<Feed/>}/>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/feed" element={<Feed />} />
       </Routes>
     </div>
   );
