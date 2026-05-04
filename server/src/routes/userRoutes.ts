@@ -25,5 +25,23 @@ router.get('/feed', protect, async (req: AuthRequest, res: Response) => {
     }
 
 });
+// Fetch a single user profile by ID
+router.get('/:id', protect, async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        // req.params.id grabs the ID straight from the URL!
+        const user = await User.findById(req.params.id).select('-password');
+        
+        if (!user) {
+            res.status(404).json({ message: "User not found" });
+            return;
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Error fetching profile: ", error);
+        // If the ID is an invalid format, Mongoose throws an error, so we catch it here
+        res.status(500).json({ message: "Invalid User ID or Server Error" });
+    }
+});
 
 export default router;

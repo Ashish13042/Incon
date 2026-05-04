@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // 1. Tell TypeScript what a Profile looks like
 interface Profile {
@@ -12,7 +12,7 @@ interface Profile {
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  
+
   // 2. Change our state to hold an Array of Profiles
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [error, setError] = useState("");
@@ -33,7 +33,7 @@ const Dashboard: React.FC = () => {
         const response = await axios.get('http://localhost:5000/api/users/feed', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        
+
         // Save the array of users to state
         setProfiles(response.data.profile);
         setLoading(false);
@@ -52,13 +52,13 @@ const Dashboard: React.FC = () => {
     <div style={{ maxWidth: '800px', margin: '40px auto', fontFamily: 'sans-serif' }}>
       <h2>Welcome, {currentUser.username}!</h2>
       <p style={{ color: '#666', marginBottom: '30px' }}>
-        {currentUser.role === 'entrepreneur' 
-          ? "Here are some Investors who might be interested in your startup:" 
+        {currentUser.role === 'entrepreneur'
+          ? "Here are some Investors who might be interested in your startup:"
           : "Here are some Entrepreneurs looking for funding:"}
       </p>
-      
+
       {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
-      
+
       {loading ? (
         <p>Loading network...</p>
       ) : (
@@ -68,10 +68,10 @@ const Dashboard: React.FC = () => {
             <p>No profiles found in your network yet.</p>
           ) : (
             profiles.map((profile) => (
-              <div key={profile._id} style={{ 
-                padding: '20px', 
-                backgroundColor: '#fff', 
-                borderRadius: '8px', 
+              <div key={profile._id} style={{
+                padding: '20px',
+                backgroundColor: '#fff',
+                borderRadius: '8px',
                 border: '1px solid #ddd',
                 boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
                 display: 'flex',
@@ -81,12 +81,23 @@ const Dashboard: React.FC = () => {
                 <div>
                   <h3 style={{ margin: '0 0 5px 0', color: '#007bff' }}>{profile.username}</h3>
                   <p style={{ margin: '0', color: '#555' }}>{profile.email}</p>
+                  <Link to={`/profile/${profile._id}`} style={{
+                    textDecoration: 'none',
+                    backgroundColor: '#f8f9fa',
+                    border: '1px solid #ccc',
+                    padding: '5px 10px',
+                    borderRadius: '4px',
+                    color: '#333',
+                    fontSize: '14px'
+                  }}>
+                    View Profile
+                  </Link>
                 </div>
-                <span style={{ 
-                  padding: '5px 10px', 
-                  backgroundColor: profile.role === 'investor' ? '#28a745' : '#17a2b8', 
-                  color: 'white', 
-                  borderRadius: '20px', 
+                <span style={{
+                  padding: '5px 10px',
+                  backgroundColor: profile.role === 'investor' ? '#28a745' : '#17a2b8',
+                  color: 'white',
+                  borderRadius: '20px',
                   fontSize: '12px',
                   textTransform: 'capitalize'
                 }}>

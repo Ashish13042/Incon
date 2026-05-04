@@ -1,42 +1,68 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import Feed from './pages/Feed';
 
-function App() {
-  // A simple logout function
+// Inner wrapper so we can use useLocation inside Router
+function AppInner() {
+
+  const location = useLocation();
+  const hiddenNavRoutes = ['/feed'];
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    window.location.href = '/login'; // Force a hard refresh back to login
+    window.location.href = '/login';
   };
 
+  // Quick check to see if user is logged in for the nav bar
+  const isLoggedIn = !!localStorage.getItem('token');
+
+  return (
+    <div>
+      {!hiddenNavRoutes.includes(location.pathname) && (
+        <nav style={{ padding: '16px 24px', backgroundColor: '#13141a', borderBottom: '1px solid #222', display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <Link to="/" style={{ textDecoration: 'none', color: '#fff', fontWeight: 700, fontSize: '16px', letterSpacing: '-0.3px' }}>✦ Incon</Link>
+          
+          {isLoggedIn && (
+            <>
+              <Link to="/dashboard" style={{ textDecoration: 'none', color: '#aaa', fontSize: '14px' }}>Network</Link>
+              <Link to="/feed" style={{ textDecoration: 'none', color: '#aaa', fontSize: '14px' }}>Live Feed</Link>
+            </>
+          )}
+
+          {!isLoggedIn && (
+            <>
+              <Link to="/register" style={{ textDecoration: 'none', color: '#aaa', fontSize: '14px' }}>Register</Link>
+              <Link to="/login" style={{ textDecoration: 'none', color: '#aaa', fontSize: '14px' }}>Login</Link>
+            </>
+          )}
+          
+          {isLoggedIn && (
+            <button onClick={handleLogout} style={{ marginLeft: 'auto', padding: '6px 14px', backgroundColor: '#dc3545', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '8px', fontSize: '13px', fontWeight: 600 }}>
+              Logout
+            </button>
+          )}
+        </nav>
+      )}
+
+      <Routes>
+        <Route path="/" element={<h1 style={{ padding: '40px 28px', fontFamily: 'Inter, sans-serif' }}>Welcome to Incon 🚀</h1>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/feed" element={<Feed />} />
+      </Routes>
+    </div>
+  );
+}
+
+function App() {
   return (
     <Router>
-      <div>
-        <nav style={{ padding: '20px', backgroundColor: '#f8f9fa', borderBottom: '1px solid #ddd', display: 'flex', gap: '15px', alignItems: 'center' }}>
-          <Link to="/" style={{ textDecoration: 'none', color: '#333' }}>Home</Link>
-          <Link to="/register" style={{ textDecoration: 'none', color: '#007bff' }}>Register</Link>
-          <Link to="/login" style={{ textDecoration: 'none', color: '#28a745', fontWeight: 'bold' }}>Login</Link>
-          <Link to="/dashboard" style={{ textDecoration: 'none', color: '#007bff' }}>Dashboard</Link>
-          
-          {/* We push the logout button to the far right */}
-          <button 
-            onClick={handleLogout} 
-            style={{ marginLeft: 'auto', padding: '5px 10px', backgroundColor: '#dc3545', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px' }}
-          >
-            Logout
-          </button>
-        </nav>
-
-        <Routes>
-          <Route path="/" element={<h1 style={{ padding: '20px' }}>Welcome to Investor Connect</h1>} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          {/* Replace the temporary h2 with your actual component */}
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </div>
+      <AppInner />
     </Router>
   );
 }

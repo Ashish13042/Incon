@@ -1,61 +1,113 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import './Auth.css';
+import authHero from '../assets/auth_hero.png';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', formData);
-      
-      // 1. Save the VIP Wristband (Token) into the browser's local memory
+
       localStorage.setItem('token', response.data.token);
-      
-      // 2. Save some basic user info so we can display their name later
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
-      setMessage("Login successful! Redirecting...");
-      
-      // 3. Send them to the dashboard/feed
-      setTimeout(() => {
-          navigate('/dashboard'); // We will build this page next!
-      }, 1500);
-
+      setIsSuccess(true);
+      setMessage('Login successful! Redirecting...');
+      setTimeout(() => navigate('/feed'), 1500);
     } catch (err: any) {
-      setMessage(err.response?.data?.message || "Login failed");
+      setIsSuccess(false);
+      setMessage(err.response?.data?.message || 'Login failed');
     }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '50px auto', fontFamily: 'sans-serif' }}>
-      <h2>Login to Investor Connect</h2>
-      
-      {message && <p style={{ color: message.includes('success') ? 'green' : 'red' }}>{message}</p>}
+    <div className="auth-wrapper">
+      <div className="auth-card">
 
-      <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-        <input 
-          type="email" 
-          placeholder="Email Address" 
-          required
-          onChange={(e) => setFormData({...formData, email: e.target.value})} 
-          style={{ padding: '10px' }}
-        />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          required
-          onChange={(e) => setFormData({...formData, password: e.target.value})} 
-          style={{ padding: '10px' }}
-        />
-        
-        <button type="submit" style={{ padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', cursor: 'pointer' }}>
-          Login
-        </button>
-      </form>
+        {/* ── Left Image Panel ── */}
+        <div className="auth-image-panel">
+          <img src={authHero} alt="Incon Network" />
+          <div className="auth-logo-overlay">✦ Incon</div>
+        </div>
+
+        {/* ── Right Form Panel ── */}
+        <div className="auth-form-panel">
+          <Link to="/" className="auth-back">←</Link>
+
+          <h1 className="auth-title">Welcome Back</h1>
+          <p className="auth-subtitle">
+            Don't have an account? <Link to="/register">Sign up</Link>
+          </p>
+
+          <form onSubmit={handleLogin}>
+            {/* Email */}
+            <div className="form-group">
+              <label className="form-label">Email Address</label>
+              <input
+                type="email"
+                className="form-input"
+                placeholder="you@example.com"
+                required
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
+            </div>
+
+            {/* Password */}
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <div className="input-wrapper">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  className="form-input"
+                  placeholder="Enter your password"
+                  required
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                />
+                <button
+                  type="button"
+                  className="eye-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label="Toggle password visibility"
+                >
+                  {showPassword ? '🙈' : '👁'}
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" className="submit-btn">Log In</button>
+          </form>
+
+          {message && (
+            <div className={`auth-message ${isSuccess ? 'success' : 'error'}`}>
+              {message}
+            </div>
+          )}
+
+          <div className="auth-divider">or</div>
+
+          <div className="social-buttons">
+            <button type="button" className="social-btn">
+              {/* Google Icon */}
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              Continue with Google
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 };

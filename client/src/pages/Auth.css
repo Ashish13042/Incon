@@ -1,0 +1,328 @@
+/* ============================================================
+   Auth.css — Login & Register Split-Panel Design
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Full Page Wrapper ---- */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #c8d0da;
+  padding: 24px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ---- Card Container ---- */
+.auth-card {
+  display: flex;
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.18), 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 920px;
+  width: 100%;
+  min-height: 620px;
+}
+
+/* ---- Left Image Panel ---- */
+.auth-image-panel {
+  flex: 1.05;
+  position: relative;
+  overflow: hidden;
+  display: none;
+  border-radius: 24px;
+  margin: 10px;
+}
+
+.auth-image-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient overlay on image */
+.auth-image-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(10, 15, 40, 0.35) 0%,
+    rgba(15, 25, 60, 0.15) 50%,
+    rgba(80, 30, 10, 0.2) 100%
+  );
+  border-radius: 18px;
+}
+
+/* Logo on image panel */
+.auth-logo-overlay {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+@media (min-width: 720px) {
+  .auth-image-panel {
+    display: block;
+  }
+}
+
+/* ---- Right Form Panel ---- */
+.auth-form-panel {
+  flex: 1;
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+/* Back link */
+.auth-back {
+  font-size: 18px;
+  color: #888;
+  text-decoration: none;
+  margin-bottom: 28px;
+  display: inline-block;
+  transition: color 0.2s;
+}
+.auth-back:hover { color: #111; }
+
+/* ---- Headings ---- */
+.auth-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0d0d0d;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.auth-subtitle {
+  font-size: 13.5px;
+  color: #888;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+.auth-subtitle a {
+  color: #0d0d0d;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.auth-subtitle a:hover { color: #444; }
+
+/* ---- Two-Column Row ---- */
+.form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* ---- Form Fields ---- */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 7px;
+  letter-spacing: 0.1px;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 14px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #fafafa;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-input::placeholder { color: #bbb; }
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #111;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+/* ---- Password Input Wrapper ---- */
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .form-input {
+  padding-right: 44px;
+}
+
+.input-wrapper .eye-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.input-wrapper .eye-toggle:hover { color: #555; }
+
+/* ---- Submit Button ---- */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #0d0d0d;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  letter-spacing: 0.1px;
+  font-family: 'Inter', sans-serif;
+}
+
+.submit-btn:hover {
+  background-color: #2a2a2a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:active {
+  transform: scale(0.985);
+}
+
+/* ---- Message Box ---- */
+.auth-message {
+  font-size: 13.5px;
+  text-align: center;
+  padding: 10px 16px;
+  border-radius: 10px;
+  margin-top: 14px;
+  font-weight: 500;
+}
+
+.auth-message.success {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.auth-message.error {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* ---- Divider ---- */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 16px;
+  color: #bbb;
+  font-size: 13px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ebebeb;
+}
+
+/* ---- Social Buttons ---- */
+.social-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #333;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  text-decoration: none;
+}
+
+.social-btn:hover {
+  border-color: #ccc;
+  background: #fafafa;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.social-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ---- Role Select ---- */
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 719px) {
+  .auth-form-panel {
+    padding: 40px 28px;
+  }
+  .auth-title {
+    font-size: 26px;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
