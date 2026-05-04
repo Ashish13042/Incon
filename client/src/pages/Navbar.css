@@ -1,0 +1,170 @@
+/* client/src/pages/Navbar.css */
+
+.main-navbar {
+  height: 64px;
+  background-color: #13141a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  margin-right: 32px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-tab {
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #aaa;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-tab:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-tab.active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.nav-spacer {
+  flex: 1;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-icon-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-icon-btn:hover {
+  color: #fff;
+}
+
+.nav-user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 16px;
+  border-left: 1px solid #333;
+}
+
+.nav-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.nav-avatar:hover {
+  transform: scale(1.05);
+}
+
+.nav-logout-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-logout-btn:hover {
+  background: #c82333;
+}
+
+/* Auth Buttons */
+.nav-auth-btns {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-btn-link {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-btn-link:hover {
+  color: #fff;
+}
+
+.nav-btn-primary {
+  background-color: #6366f1;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.nav-btn-primary:hover {
+  background-color: #4f46e5;
+}
+
+.nav-btn-primary:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .nav-links, .nav-icon-btn {
+    display: none;
+  }
+}

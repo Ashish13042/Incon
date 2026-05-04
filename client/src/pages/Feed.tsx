@@ -88,17 +88,6 @@ const Feed: React.FC = () => {
 
     return (
         <div className="feed-shell">
-
-            {/* ── Top Header ── */}
-            <header className="feed-header">
-                <span className="feed-header-logo">✦ Incon</span>
-                <div className="feed-header-spacer" />
-                <div className="feed-header-actions">
-                    <button className="feed-header-btn" title="Notifications">🔔</button>
-                    <Link to="/dashboard"><div className="feed-avatar-sm">{initials(currentUser.username || '')}</div></Link>
-                </div>
-            </header>
-
             {/* ── Three-Panel Body ── */}
             <div className="feed-body">
 
