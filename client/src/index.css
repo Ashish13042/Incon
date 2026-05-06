@@ -105,3 +105,16 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.app-layout {
+  display: flex;
+  min-height: calc(100vh - 64px);
+  width: 100%;
+  max-width: 100vw;
+}
+
+.main-content {
+  flex-grow: 1;
+  width: 100%;
+  min-width: 0;
+}

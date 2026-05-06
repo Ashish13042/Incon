@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import {Menu} from 'lucide-react';
 import './Navbar.css';
 
-const Navbar: React.FC = () => {
+interface NavbarProps{
+  onToggleSidebar : () => void;
+}
+
+
+const Navbar: React.FC<NavbarProps> = ({onToggleSidebar}) => {
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -28,16 +34,11 @@ const Navbar: React.FC = () => {
   return (
     <nav className="main-navbar">
       <div className="nav-container">
+        <button className="nav-icon-btn" title="Hamburger Menu" onClick={onToggleSidebar}>
+          <Menu/>
+        </button>
         {/* Left: Logo */}
         <Link to="/" className="nav-logo">✦ Incon</Link>
-
-        {/* Middle: Links (Only show if logged in) */}
-        {isLoggedIn && (
-          <div className="nav-links">
-            <Link to="/" className={`nav-tab ${location.pathname === '/' ? 'active' : ''}`}>Live Feed</Link>
-            <Link to="/dashboard" className={`nav-tab ${location.pathname === '/dashboard' ? 'active' : ''}`}>Network</Link>
-          </div>
-        )}
 
         <div className="nav-spacer" />
 

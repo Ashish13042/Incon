@@ -1,0 +1,198 @@
+/* client/src/pages/Sidebar.css */
+
+.global-sidebar {
+  width: 260px;
+  background-color: #ffffff;
+  border-right: 1px solid #eaeaea;
+  display: flex;
+  transition: transform 0.3s ease, width 0.3s ease;
+  flex-direction: column;
+  padding: 24px 20px;
+  height: calc(100vh - 64px);
+  /* Subtract Navbar height */
+  position: sticky;
+  top: 64px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.global-sidebar.closed {
+  width: 0;
+  padding: 0;
+  transform: translateX(-260px);
+  border-right-color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  .global-sidebar {
+    background-color: #13141a;
+    border-right: 1px solid #2e303a;
+  }
+}
+
+
+/* User Identity Card */
+.sidebar-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(145deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+  border-radius: 12px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .sidebar-identity {
+    background: linear-gradient(145deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+  }
+}
+
+.sidebar-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.sidebar-avatar.investor {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.sidebar-username {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-h);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-role-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  text-transform: capitalize;
+  width: fit-content;
+}
+
+.sidebar-role-badge.entrepreneur {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
+}
+
+.sidebar-role-badge.investor {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+/* Sections */
+.sidebar-section {
+  margin-bottom: 24px;
+}
+
+.sidebar-heading {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  color: #888;
+  margin: 0 0 12px 8px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  width: 100%;
+}
+
+.sidebar-link:hover {
+  background-color: var(--social-bg);
+  color: var(--text-h);
+}
+
+.sidebar-link.active {
+  background-color: var(--accent-bg);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sidebar-icon {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+}
+
+.sidebar-spacer {
+  flex-grow: 1;
+}
+
+.sidebar-bottom {
+  margin-bottom: 0;
+  margin-top: auto;
+}
+
+.sidebar-logout-btn {
+  color: #ef4444;
+}
+
+.sidebar-logout-btn:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+@media (prefers-color-scheme: dark) {
+  .sidebar-role-badge.entrepreneur {
+    background-color: rgba(192, 132, 252, 0.15);
+    color: #c084fc;
+  }
+}
+
+@media (max-width: 768px) {
+  .global-sidebar {
+    display: none;
+    /* Hide on small screens, can be replaced with a hamburger menu later */
+  }
+}
