@@ -5,7 +5,6 @@
   background-color: #13141a;
   color: #fff;
   display: flex;
-  align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -28,7 +27,8 @@
   color: #fff;
   text-decoration: none;
   letter-spacing: -0.5px;
-  margin-right: 32px;
+  margin-right: 37px;
+  margin-left: 8px;
 }
 
 .nav-links {
@@ -70,7 +70,7 @@
   background: none;
   border: none;
   color: #aaa;
-  font-size: 18px;
+  font-size: 5px;
   cursor: pointer;
   transition: color 0.2s;
   padding: 4px;
@@ -83,11 +83,119 @@
 }
 
 .nav-user-menu {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  position: relative;
+  display: inline-block;
+  padding: 8px 0; /* Creates an invisible bridge so hover doesn't break when moving cursor */
   padding-left: 16px;
   border-left: 1px solid #333;
+  cursor: pointer;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  width: 200px;
+  background: rgba(19, 20, 26, 0.95); /* Sleek dark theme */
+  backdrop-filter: blur(10px);        /* Premium glassmorphism */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  /* Smooth Hover Animation setup */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1001;
+}
+
+.nav-user-menu:hover .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* User Profile Header inside Dropdown */
+.dropdown-user-info {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px 8px 8px;
+}
+
+.dropdown-username {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.dropdown-role {
+  font-size: 11px;
+  color: #8b5cf6; /* Modern purple accent */
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.dropdown-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 6px 0;
+}
+
+/* Dropdown Profile Button styling */
+.dropdown-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.dropdown-profile-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+/* Dropdown Logout Button styling */
+.dropdown-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #f87171;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.dropdown-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
 .nav-avatar {

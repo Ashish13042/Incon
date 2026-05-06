@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Sidebar.css';
 
 interface SidebarProps {
   isOpen: boolean;
 }
-
+interface Post {
+    _id: string;
+    title: string;
+    content: string;
+    createdAt: string;
+    author: {
+        _id: string;
+        username: string;
+        role: string;
+    };
+}
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -14,6 +24,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const currentUserString = localStorage.getItem('user');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
   const isLoggedIn = !!token && !!currentUser;
+  const [activeCategory, setActiveCategory] = useState('all');
+      const [posts, setPosts] = useState<Post[]>([]);
+  
+  
+  const CATEGORIES = [
+    { id: 'all', label: 'All Pitches' },
+    { id: 'startup', label: 'Startup Pitches' },
+    { id: 'investment', label: 'Investment Asks' },
+    { id: 'market', label: 'Market Updates' },
+    { id: 'networking', label: 'Networking' },
+    { id: 'events', label: 'Events' },
+];
 
   const isAuthPage = ['/login', '/register'].includes(location.pathname);
 
@@ -31,20 +53,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     window.location.reload();
   };
 
+  function setActiveCategories(id: any): void {
+    throw new Error('Function not implemented.');
+  }
+
+  
   return (
     <aside className={`global-sidebar ${isOpen ? '' : 'closed'}`}>
-      {/* User Identity Card */}
-      <div className="sidebar-identity">
-        <div className={`sidebar-avatar ${currentUser.role === 'investor' ? 'investor' : ''}`}>
-          {getInitials(currentUser.username)}
-        </div>
-        <div className="sidebar-user-info">
-          <div className="sidebar-username">{currentUser.username}</div>
-          <div className={`sidebar-role-badge ${currentUser.role}`}>
-            {currentUser.role}
-          </div>
-        </div>
-      </div>
+      
 
       {/* Primary Navigation */}
       <div className="sidebar-section">
@@ -61,6 +77,27 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           </Link>
         </nav>
       </div>
+      <aside className="feed-sidebar-left">
+                    <div className="feed-sidebar-card">
+                        <div className="feed-sidebar-header">
+                            <span className="feed-sidebar-title">Category</span>
+                            <button className="feed-add-btn">＋ Add New</button>
+                        </div>
+
+                        {CATEGORIES.map(cat => (
+                            <button
+                                key={cat.id}
+                                className={`feed-category-item ${activeCategory === cat.id ? 'active' : ''}`}
+                                onClick={() => setActiveCategory(cat.id)}
+                            >
+                                {cat.label}
+                                {cat.id === 'all' && (
+                                    <span className="feed-category-badge">{posts.length}</span>
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                </aside>
 
       {/* Role-Specific Actions */}
       <div className="sidebar-section">
@@ -80,6 +117,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
 
       <div className="sidebar-spacer" />
 
+      
+      {/* User Identity Card */}
+      <div className="sidebar-identity">
+        <div className={`sidebar-avatar ${currentUser.role === 'investor' ? 'investor' : ''}`}>
+          {getInitials(currentUser.username)}
+        </div>
+        <div className="sidebar-user-info">
+          <div className="sidebar-username">{currentUser.username}</div>
+          <div className={`sidebar-role-badge ${currentUser.role}`}>
+            {currentUser.role}
+          </div>
+        </div>
+      </div>
       {/* Utility & Account */}
       <div className="sidebar-section sidebar-bottom">
         <nav className="sidebar-nav">

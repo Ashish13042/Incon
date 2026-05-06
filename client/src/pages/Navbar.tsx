@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import {Menu} from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
 import './Navbar.css';
 
-interface NavbarProps{
-  onToggleSidebar : () => void;
+interface NavbarProps {
+  onToggleSidebar: () => void;
 }
 
 
-const Navbar: React.FC<NavbarProps> = ({onToggleSidebar}) => {
+const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // 1. Check if user is logged in
   const token = localStorage.getItem('token');
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
@@ -35,7 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({onToggleSidebar}) => {
     <nav className="main-navbar">
       <div className="nav-container">
         <button className="nav-icon-btn" title="Hamburger Menu" onClick={onToggleSidebar}>
-          <Menu/>
+          <Menu />
         </button>
         {/* Left: Logo */}
         <Link to="/" className="nav-logo">✦ Incon</Link>
@@ -46,14 +46,28 @@ const Navbar: React.FC<NavbarProps> = ({onToggleSidebar}) => {
         <div className="nav-actions">
           {isLoggedIn ? (
             <>
-              <button className="nav-icon-btn" title="Search">🔍</button>
-              <button className="nav-icon-btn" title="Notifications">🔔</button>
-              
+              <button className="nav-icon-btn" title="Notifications"><Bell /></button>
               <div className="nav-user-menu">
-                <Link to={`/profile/${currentUser._id}`} className="nav-avatar">
+                <div className="nav-avatar">
                   {getInitials(currentUser.username)}
-                </Link>
-                <button onClick={handleLogout} className="nav-logout-btn">Logout</button>
+                </div>
+                <div className="nav-dropdown">
+                  <div className="dropdown-user-info">
+                    <span className="dropdown-username">
+                      {currentUser.username || 'User'}
+                    </span>
+                    <span className="dropdown-role">
+                      {currentUser.role || 'Role'}
+                    </span>
+                  </div>
+                  <hr className="dropdown-divider" />
+                  <Link to={`/profile/${currentUser._id}`} className="dropdown-profile-btn">
+                    👤 My Profile
+                  </Link>
+                  <button onClick={handleLogout} className="dropdown-logout-btn">
+                    🚪 Logout
+                  </button>
+                </div>
               </div>
             </>
           ) : (
