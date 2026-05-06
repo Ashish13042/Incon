@@ -90,30 +90,6 @@ const Feed: React.FC = () => {
         <div className="feed-shell">
             {/* ── Three-Panel Body ── */}
             <div className="feed-body">
-
-                {/* ── Left Sidebar ── */}
-                <aside className="feed-sidebar-left">
-                    <div className="feed-sidebar-card">
-                        <div className="feed-sidebar-header">
-                            <span className="feed-sidebar-title">Category</span>
-                            <button className="feed-add-btn">＋ Add New</button>
-                        </div>
-
-                        {CATEGORIES.map(cat => (
-                            <button
-                                key={cat.id}
-                                className={`feed-category-item ${activeCategory === cat.id ? 'active' : ''}`}
-                                onClick={() => setActiveCategory(cat.id)}
-                            >
-                                {cat.label}
-                                {cat.id === 'all' && (
-                                    <span className="feed-category-badge">{posts.length}</span>
-                                )}
-                            </button>
-                        ))}
-                    </div>
-                </aside>
-
                 {/* ── Center Feed ── */}
                 <main className="feed-center">
 
